@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from fcuser.views import index, RegisterForm
+from fcuser.views import index, RegisterForm, LoginForm
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
-    path('register/', RegisterForm.as_view())
-
+    path('register/', RegisterForm.as_view()),
+    path('login/', LoginForm.as_view())
 ]
