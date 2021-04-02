@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load humanize %}
+{%block contents%}
+
+
+<div class="row mt-5s">
+<div class="col-12">
+    <table class="table">
+ <thead class="thead-light">
+   <tr>
+      <th>#</th>
+      <th>상품</th>
+      <th>가격</th>
+      <th>등록일</th>
+   </tr>
+ </thead>
+ <tbody class="text-dark">
+ {% for product in object_list%}
+   <tr>
+       <td>{{product.id}}</td>
+      <td><a href="/product/{{product.id}}">{{product.name}}</a></td>
+      <td>{{product.price|intcomma }}원</td>
+      <!-- intcomma를 이용하여 세자리마다 ,추가 -->
+      <td>{{product.register_date|date:'y-m-d H:i'}}</td>
+   </tr>
+   {%endfor%}
+ </tbody> 
+
+</table>
+</div>
+</div>
+{%endblock%}
+
