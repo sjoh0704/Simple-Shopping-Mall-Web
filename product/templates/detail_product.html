@@ -1,7 +1,25 @@
 {% extends "base.html" %}
+{% load humanize %}
 {%block contents%}
-product
-{{product.name}}
+<div class="low mt-5">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body" style="width: 100%;">
+                <h5 class="card-title">{{product.name}}</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{product.price|intcomma}}</li>
+                <li class="list-group-item">{{product.register_date|date:'y-m-d H:i'}}</li>
+                <li class="list-group-item">{{product.description|safe}}</li>
+            </ul>
+        </div>
 
+    </div>
+</div>
+<div class="row mt3">
+    <div class="col-12 text-center">
+        <a href="/product/"> 목록보기</a>
+    </div>
+</div>
 
 {%endblock%}
