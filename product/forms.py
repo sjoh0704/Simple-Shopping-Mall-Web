@@ -16,7 +16,7 @@ class RegisterForm(forms.Form):
         "required": "상품 설명을 입력해주세요"
     }, label="상품 설명")
 
-    stuck = forms.IntegerField(
+    stock = forms.IntegerField(
         error_messages={
             'required': "상품 재고를 입력해주세요"
     }, label="상품 재고")
@@ -26,9 +26,10 @@ class RegisterForm(forms.Form):
         name = cleaned_data.get("name")
         price = cleaned_data.get("price")
         description = cleaned_data.get("description")
-        stuck = cleaned_data.get("stuck")
+        stock = cleaned_data.get("stock")
 
-        if name and price and description and stuck:
-            product = Product(name = name, price = price, description= description, stuck = stuck)
+        if name and price and description and stock:
+            product = Product(name = name, price = price, description= description, stock = stock)
             product.save()
+            
             
