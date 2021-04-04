@@ -13,7 +13,6 @@ def admin_required(function):
     def wrap(request, *args, **kwards):
         email = request.session.get('user')
         if email == None or not email:
-            print("레벨!!!", email)
             return redirect('/login')
         
         user = Fcuser.objects.get(email=email)

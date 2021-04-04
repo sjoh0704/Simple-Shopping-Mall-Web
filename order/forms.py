@@ -28,26 +28,12 @@ class RegisterForm(forms.Form):
         cleaned_data = super().clean()
         quantity = cleaned_data.get("quantity")
         product_id = cleaned_data.get("product")
-        email = self.request.session.get('user')
+        # 쿼리문제면 키와 value가 맞지 않는다는 것
 
         # transaction을 이용하여 주문이 들어가면서 상품 재고도 줄어들게 할것이다.
         # 일련의 여러 동작을 하나의 동작으로 취급하겠다. 전체가 성공해야 동작이 돌아가고 
         # 하나라도 실패하면 돌아가지 않는다.(트랜잭션은 데이터베이스에서 제공하는 기능)
 
-        if quantity and product_id and email:
-            with transaction.atomic():
-                # 여기 안에서 돌아가는 것들을 동시에 동작
-                prod=Product.objects.get(pk=product_id)
-
-                order = Order(quantity=quantity, 
-                product=prod,
-                fcuser=Fcuser.objects.get(email=email))
-                order.save()
-                
-                prod.stock -= quantity
-                prod.save()
-
-        else:
-            self.product_id = product_id
+        if not(quantity and product_id):
             self.add_error('quantity', "수량을 입력해주세요")
             self.add_error('product', '제품을 선택해주세요')

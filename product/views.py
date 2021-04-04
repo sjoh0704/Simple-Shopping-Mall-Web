@@ -18,6 +18,15 @@ class ProductRegister(FormView):
     form_class = RegisterForm
     success_url = "/product"
 
+
+    def form_valid(self, form):
+        product = Product(name = form.data.get("name"), 
+        price = form.data.get("price"), 
+        description= form.data.get("description"), 
+        stock = form.data.get("stock"))
+        product.save()
+        return super().form_valid(form)
+
 class ProductDetail(DetailView):
     template_name = 'detail_product.html'
     queryset = Product.objects.all()
