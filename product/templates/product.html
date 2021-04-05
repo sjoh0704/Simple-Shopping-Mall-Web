@@ -1,8 +1,34 @@
 {% extends "base.html" %}
 {% load humanize %}
+{% block header %}
+<script>
+// 이렇게 화면이 준비가 되었을 때 ajax요청을 하여 api호출
+
+function product_detail(id){
+  $.ajax({
+  url: "/api/product/" + id,
+  success: function( result ) {
+    $("#product-" +id).popover({
+      html:true,
+      content:"테스트"
+
+    }).popover("show");
+  }
+});
+}
+
+$(document).ready(function(){
+   
+});
+</script>
+{% endblock %}
+
 {%block contents%}
 
-
+<!-- 
+ajax를 이용하여 jquery를 한다. 원래는 화면이 바뀔때마다 요청을 받지만
+이런식으로 jquery를 하면 화면이 바뀌지 않아도 화면에 원하는 것을 띄울 수 있다.
+-> 이것이 프론트엔드와 벡앤드를 구분지을 수 있게 하는 것 -->
 <div class="row mt-5">
 <div class="col-12">
     <table class="table">
@@ -18,7 +44,7 @@
  {% for product in object_list%}
    <tr>
        <td>{{product.id}}</td>
-      <td><a href="/product/{{product.id}}">{{product.name}}</a></td>
+      <td><a id= "product-{{product.id}}"href="/product/{{product.id}}" onmouseenter="product_detail({{ product.id }})">{{product.name}}</a></td>
       <td>{{product.price|intcomma }}원</td>
       <!-- intcomma를 이용하여 세자리마다 ,추가 -->
       <td>{{product.register_date|date:'y-m-d H:i'}}</td>
