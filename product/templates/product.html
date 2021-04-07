@@ -10,12 +10,16 @@ function product_detail(id){
   success: function( result ) {
     $("#product-" +id).popover({
       html:true,
-      content:"테스트"
+      content: result.name + " " + result.price
 
     }).popover("show");
   }
 });
 }
+function product_leave(id){
+  $("#product-" + id).popover("hide");
+}
+
 
 $(document).ready(function(){
    
@@ -29,9 +33,11 @@ $(document).ready(function(){
 ajax를 이용하여 jquery를 한다. 원래는 화면이 바뀔때마다 요청을 받지만
 이런식으로 jquery를 하면 화면이 바뀌지 않아도 화면에 원하는 것을 띄울 수 있다.
 -> 이것이 프론트엔드와 벡앤드를 구분지을 수 있게 하는 것 -->
+
+
 <div class="row mt-5">
-<div class="col-12">
-    <table class="table">
+<div class="col-12">  
+  <table class="table">
  <thead class="thead-light">
    <tr>
       <th>#</th>
@@ -44,7 +50,7 @@ ajax를 이용하여 jquery를 한다. 원래는 화면이 바뀔때마다 요�
  {% for product in object_list%}
    <tr>
        <td>{{product.id}}</td>
-      <td><a id= "product-{{product.id}}"href="/product/{{product.id}}" onmouseenter="product_detail({{ product.id }})">{{product.name}}</a></td>
+      <td><a id= "product-{{product.id}}"href="/product/{{product.id}}" onmouseenter="product_detail({{ product.id }})" onmouseleave="product_leave({{product.id}})">{{product.name}}</a></td>
       <td>{{product.price|intcomma }}원</td>
       <!-- intcomma를 이용하여 세자리마다 ,추가 -->
       <td>{{product.register_date|date:'y-m-d H:i'}}</td>
@@ -54,6 +60,16 @@ ajax를 이용하여 jquery를 한다. 원래는 화면이 바뀔때마다 요�
 
 </table>
 </div>
+  <br>  
+<div class="col-12"><a href="/order">장바구니</a></div>
+  <br>
+<div class="col-12">
+  <br>
+  <p><a href="/">홈으로</a></p>
 </div>
+
+</div>
+
+
 {%endblock%}
 

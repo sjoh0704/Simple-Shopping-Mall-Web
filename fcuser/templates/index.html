@@ -1,7 +1,28 @@
 {%extends 'base.html'%}
 {%block contents%}
 
-hello {{email}}
-
-
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-12">
+            
+            <div class="list-group">
+                {%ifequal email None%}
+                <h1>환영합니다!</h1>
+                <br>
+                <a href="/login" class="list-group-item">로그인</a>
+                <a href="/register" class="list-group-item">회원가입</a>
+                {%else%}
+                <h1>{{email}}님 환영합니다!</h1>
+                <br>
+                <a href="/logout" class="list-group-item">로그아웃</a>
+                <a href="/product" class="list-group-item">눌러봐용</a>
+              
+        
+                {%endifequal%}
+              </div>
+            
+          
+        </div>
+    </div>
+</div>
 {%endblock%}
